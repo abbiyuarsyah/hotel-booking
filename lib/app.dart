@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'features/hotel/presentation/pages/hotel_list_page.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -13,7 +15,7 @@ class App extends StatelessWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      routes: {'/': (context) => const Scaffold(backgroundColor: Colors.white)},
+      routes: {'/': (context) => const HotelListPage()},
     );
   }
 }
