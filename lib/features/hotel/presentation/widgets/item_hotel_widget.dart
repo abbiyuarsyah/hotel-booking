@@ -25,23 +25,36 @@ class ItemHotelWidget extends StatelessWidget {
                 height: 200,
                 color: Colors.grey,
               ),
-              Positioned(
-                bottom: Dimens.large, // Adjust distance from bottom
-                left: Dimens.medium, // Adjust distance from left
-                child: Row(
-                  children: [
-                    CardContainer(
-                      padding: const EdgeInsets.all(Dimens.small),
-                      isTopRounded: true,
-                      isBottomRounded: true,
-                      radiusValue: Dimens.extraSmall,
-                      color: Colors.green,
+              isDetailShown
+                  ? const SizedBox()
+                  : Positioned(
+                      bottom: Dimens.large,
+                      left: Dimens.medium,
                       child: Row(
                         children: [
-                          Icon(Icons.rounded_corner),
-                          SizedBox(width: 8),
+                          CardContainer(
+                            padding: const EdgeInsets.all(Dimens.small),
+                            isTopRounded: true,
+                            isBottomRounded: true,
+                            radiusValue: Dimens.extraSmall,
+                            color: Colors.green,
+                            child: Row(
+                              children: [
+                                const Icon(Icons.rounded_corner),
+                                const SizedBox(width: 8),
+                                Text(
+                                  '4.1 / 50',
+                                  style: CustomStyle.body.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: Dimens.medium),
                           Text(
-                            '4.1 / 50',
+                            'Sehr gut (493 Bew.)',
                             style: CustomStyle.body.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
@@ -50,17 +63,6 @@ class ItemHotelWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(width: Dimens.medium),
-                    Text(
-                      'Sehr gut (493 Bew.)',
-                      style: CustomStyle.body.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               isDetailShown
                   ? const SizedBox()
                   : Align(
