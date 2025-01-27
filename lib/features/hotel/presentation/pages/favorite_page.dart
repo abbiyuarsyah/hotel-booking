@@ -18,7 +18,7 @@ class FavoritePage extends StatelessWidget {
         padding: const EdgeInsets.all(Dimens.large),
         itemCount: 3,
         itemBuilder: (context, index) {
-          return const ItemHotelWidget(isDetailShown: false);
+          return Container();
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking/core/constants/custom_colors.dart';
 import 'package:hotel_booking/core/constants/custom_style.dart';
@@ -7,10 +8,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/custom_images.dart';
 import '../../../../core/constants/dimens.dart';
+import '../../../../core/service_locator/service_locator.dart';
+import '../bloc/hotel_bloc.dart';
+import '../bloc/hotel_event.dart';
 
 @RoutePage()
-class AppNavigationPage extends StatelessWidget {
+class AppNavigationPage extends StatefulWidget {
   const AppNavigationPage({super.key});
+
+  @override
+  State<AppNavigationPage> createState() => _AppNavigationPageState();
+}
+
+class _AppNavigationPageState extends State<AppNavigationPage> {
+  @override
+  void initState() {
+    super.initState();
+    sl<HotelBloc>().add(const GetHotelsEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +57,7 @@ class AppNavigationPage extends StatelessWidget {
             },
             items: [
               BottomNavigationBarItem(
-                label: 'Überblick',
+                label: tr('overview'),
                 icon: Padding(
                   padding: const EdgeInsets.only(
                     bottom: Dimens.medium,
@@ -58,7 +73,7 @@ class AppNavigationPage extends StatelessWidget {
                 ),
               ),
               BottomNavigationBarItem(
-                label: 'Suche',
+                label: tr('search'),
                 icon: Padding(
                   padding: const EdgeInsets.only(
                     bottom: Dimens.medium,
@@ -74,7 +89,7 @@ class AppNavigationPage extends StatelessWidget {
                 ),
               ),
               BottomNavigationBarItem(
-                label: 'Favoriten',
+                label: tr('favorite'),
                 icon: Padding(
                   padding: const EdgeInsets.only(
                     bottom: Dimens.medium,
@@ -90,7 +105,7 @@ class AppNavigationPage extends StatelessWidget {
                 ),
               ),
               BottomNavigationBarItem(
-                label: 'Konto',
+                label: tr('account'),
                 icon: Padding(
                   padding: const EdgeInsets.only(
                     bottom: Dimens.medium,

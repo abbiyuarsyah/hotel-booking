@@ -38,6 +38,7 @@ class GetHotels extends UseCase<HotelsEntity, Object?> {
                       days: e.bestOffer?.travelDate?.days ?? 0,
                       nights: e.bestOffer?.travelDate?.nights ?? 0,
                     ),
+                    flightIncluded: e.bestOffer?.flightIncluded ?? false,
                   ),
                   category: e.category ?? 0,
                   destination: e.destination ?? '',

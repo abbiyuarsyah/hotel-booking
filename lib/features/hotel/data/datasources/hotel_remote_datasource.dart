@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:hotel_booking/core/enums/http_method.dart';
 import 'package:hotel_booking/core/extensions/error_extension.dart';
@@ -24,7 +26,8 @@ class HotelRemoteDatasourceImpl implements HotelRemoteDatasource {
       );
 
       if (result.statusCode == 200) {
-        return Left(UnexpectedFailure());
+        final response = HotelsModel.fromJson(json.decode(result.body));
+        return Right(response);
       } else {
         /// Map the HTTP Error to Failure Objects
         /// It's needed to return the error messages

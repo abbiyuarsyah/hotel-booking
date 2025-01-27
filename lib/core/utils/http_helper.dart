@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http_client;
 
 import '../enums/http_method.dart';
 
-const baseUrl = '';
+const baseUrl = 'dkndmolrswy7b.cloudfront.net';
 
 class HttpClientHelper {
   const HttpClientHelper();

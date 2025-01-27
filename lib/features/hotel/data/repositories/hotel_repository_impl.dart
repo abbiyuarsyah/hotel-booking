@@ -6,7 +6,7 @@ import 'package:hotel_booking/features/hotel/data/datasources/hotel_remote_datas
 import 'package:hotel_booking/features/hotel/data/models/hotels_model.dart';
 
 import '../../../../core/utils/network_info.dart';
-import '../../domain/repository/hotel_repsitory.dart';
+import '../../domain/repositories/hotel_repsitory.dart';
 
 class HotelRepositoryImpl implements HotelRepository {
   const HotelRepositoryImpl({

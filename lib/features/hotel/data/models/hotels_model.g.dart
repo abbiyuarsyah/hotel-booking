@@ -51,6 +51,7 @@ BestOfferModel _$BestOfferModelFromJson(Map<String, dynamic> json) =>
           ? null
           : TravelDateModel.fromJson(
               json['travel-date'] as Map<String, dynamic>),
+      json['flight-included'] as bool?,
     );
 
 Map<String, dynamic> _$BestOfferModelToJson(BestOfferModel instance) =>
@@ -59,6 +60,7 @@ Map<String, dynamic> _$BestOfferModelToJson(BestOfferModel instance) =>
       'simple-price-per-person': instance.simplePricePerPerson,
       'rooms': instance.rooms,
       'travel-date': instance.travelDate,
+      'flight-included': instance.flightIncluded,
     };
 
 ImageModel _$ImageModelFromJson(Map<String, dynamic> json) => ImageModel(

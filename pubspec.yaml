@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   auto_route: ^9.0.0
+  carousel_slider: ^5.0.0
   collection: ^1.18.0
   dartz: ^0.10.1
   easy_localization: ^3.0.7
@@ -17,6 +18,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_svg: ^2.0.10+1
   get_it: ^8.0.2
+  google_fonts: ^6.0.0
   hive: ^2.2.3
   http: ^1.2.2
   internet_connection_checker_plus: ^2.5.2

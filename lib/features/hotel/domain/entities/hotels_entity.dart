@@ -27,12 +27,14 @@ class BestOfferEntity {
     required this.simplePricePerPerson,
     required this.rooms,
     required this.travelDate,
+    required this.flightIncluded,
   });
 
   final double originalTravelPrice;
   final double simplePricePerPerson;
   final RoomEntity rooms;
   final TravelDateEntity travelDate;
+  final bool flightIncluded;
 }
 
 class ImageEntity {

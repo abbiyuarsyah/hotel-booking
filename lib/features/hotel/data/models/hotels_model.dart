@@ -46,6 +46,7 @@ class BestOfferModel {
     this.simplePricePerPerson,
     this.rooms,
     this.travelDate,
+    this.flightIncluded,
   );
 
   @JsonKey(name: "original-travel-price")
@@ -55,6 +56,8 @@ class BestOfferModel {
   final RoomModel? rooms;
   @JsonKey(name: "travel-date")
   final TravelDateModel? travelDate;
+  @JsonKey(name: "flight-included")
+  final bool? flightIncluded;
 
   factory BestOfferModel.fromJson(Map<String, dynamic> json) =>
       _$BestOfferModelFromJson(json);
