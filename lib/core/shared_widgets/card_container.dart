@@ -9,37 +9,46 @@ class CardContainer extends StatelessWidget {
     this.isTopRounded = false,
     this.isBottomRounded = false,
     this.margin,
+    this.padding,
     this.color = Colors.white,
     this.shadow,
+    this.width,
+    this.radiusValue,
   });
 
   final Widget child;
   final bool isTopRounded;
   final bool isBottomRounded;
   final EdgeInsets? margin;
+  final EdgeInsets? padding;
   final Color color;
   final List<BoxShadow>? shadow;
+  final double? width;
+  final double? radiusValue;
 
   @override
   Widget build(BuildContext context) {
+    final radiusValue = this.radiusValue ?? Dimens.large;
+
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: width,
+      padding: padding,
       margin: margin,
       decoration: BoxDecoration(
         boxShadow: shadow,
         color: color,
         borderRadius: BorderRadius.only(
           topLeft: isTopRounded
-              ? const Radius.circular(Dimens.large)
+              ? Radius.circular(radiusValue)
               : const Radius.circular(0),
           topRight: isTopRounded
-              ? const Radius.circular(Dimens.large)
+              ? Radius.circular(radiusValue)
               : const Radius.circular(0),
           bottomLeft: isBottomRounded
-              ? const Radius.circular(Dimens.large)
+              ? Radius.circular(radiusValue)
               : const Radius.circular(0),
           bottomRight: isBottomRounded
-              ? const Radius.circular(Dimens.large)
+              ? Radius.circular(radiusValue)
               : const Radius.circular(0),
         ),
       ),

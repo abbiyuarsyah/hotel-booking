@@ -7,4 +7,5 @@ class CustomColors {
   static const orage = Color(0xFFFF8F16);
   static const black = Color(0xFF222222);
   static const grey = Color(0xFF595959);
+  static const green = Color(0xFF85BC39);
 }
