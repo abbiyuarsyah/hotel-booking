@@ -7,7 +7,6 @@ import 'package:hotel_booking/features/hotel/domain/use_case/get_favorites.dart'
 import 'package:hotel_booking/features/hotel/domain/use_case/get_hotels.dart';
 import 'package:hotel_booking/features/hotel/presentation/bloc/hotel_event.dart';
 import 'package:hotel_booking/features/hotel/presentation/bloc/hotel_state.dart';
-import 'dart:math' as math;
 
 import '../../domain/use_case/add_to_favorite.dart';
 
@@ -29,6 +28,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
             ),
             errorMessage: '',
             favorites: const [],
+            addToFavoriteFlag: false,
+            favoritesHolder: const [],
           ),
         ) {
     on<GetHotelsEvent>(_onGetHotelsEvent);
@@ -53,11 +54,13 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
       emit(state.copyWith(
         getHotelsStatus: StateStatus.failed,
         errorMessage: l.message,
+        favoritesHolder: [],
       ));
     }, (r) {
       emit(state.copyWith(
         getHotelsStatus: StateStatus.loaded,
         hotelsEntity: r,
+        favoritesHolder: [],
       ));
     });
   }
@@ -93,7 +96,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
     emit(state.copyWith(addToFavoriteStatus: StateStatus.loading));
 
     final result = await addToFavorite(FavoriteEntity(
-      id: math.Random().nextInt(100),
+      id: event.entity.hotelId,
       images: event.entity.images.map((e) => e.large).toList(),
       name: event.entity.name,
       destination: event.entity.destination,
@@ -105,7 +108,16 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
     result.fold((l) {
       emit(state.copyWith(addToFavoriteStatus: StateStatus.failed));
     }, (r) {
-      emit(state.copyWith(addToFavoriteStatus: StateStatus.loaded));
+      add(const GetFavoriteEvent());
+
+      final holder = state.favoritesHolder;
+      holder.add(event.entity.hotelId);
+
+      emit(state.copyWith(
+        addToFavoriteStatus: StateStatus.loaded,
+        addToFavoriteFlag: !state.addToFavoriteFlag,
+        favoritesHolder: holder,
+      ));
     });
   }
 
@@ -119,7 +131,16 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
     result.fold((l) {
       emit(state.copyWith(deleteFavoriteStatus: StateStatus.failed));
     }, (r) {
-      emit(state.copyWith(deleteFavoriteStatus: StateStatus.loaded));
+      add(const GetFavoriteEvent());
+
+      final holder = state.favoritesHolder;
+      holder.removeWhere((e) => e == event.entity.id);
+
+      emit(state.copyWith(
+        deleteFavoriteStatus: StateStatus.loaded,
+        addToFavoriteFlag: !state.addToFavoriteFlag,
+        favoritesHolder: holder,
+      ));
     });
   }
 }

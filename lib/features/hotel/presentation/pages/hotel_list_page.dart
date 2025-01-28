@@ -28,6 +28,8 @@ class HotelListPage extends StatelessWidget {
           horizontal: Dimens.large,
         ),
         child: BlocBuilder<HotelBloc, HotelState>(
+          buildWhen: (previous, current) =>
+              previous.getHotelsStatus != current.getHotelsStatus,
           builder: (context, state) {
             if (state.getHotelsStatus == StateStatus.loaded) {
               return Column(
@@ -46,7 +48,6 @@ class HotelListPage extends StatelessWidget {
                     itemCount: state.hotelsEntity.hotels.length,
                     itemBuilder: (context, index) {
                       return ItemHotelWidget(
-                        isDetailShown: true,
                         hotel: state.hotelsEntity.hotels[index],
                       );
                     },

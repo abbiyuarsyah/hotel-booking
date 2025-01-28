@@ -28,9 +28,7 @@ class HotelLocalDatasourceImpl implements HotelLocalDatasource {
   @override
   Future<List<FavoriteModel>> getFavorites() {
     final values = _box.values.toList().cast<FavoriteModel>();
-    return values.isEmpty
-        ? Future.value([FavoriteModel.empty()])
-        : Future.value(values);
+    return values.isEmpty ? Future.value([]) : Future.value(values);
   }
 
   @override

@@ -20,6 +20,7 @@ Map<String, dynamic> _$HotelsModelToJson(HotelsModel instance) =>
     };
 
 HotelModel _$HotelModelFromJson(Map<String, dynamic> json) => HotelModel(
+      json['hotel-id'] as String?,
       json['best-offer'] == null
           ? null
           : BestOfferModel.fromJson(json['best-offer'] as Map<String, dynamic>),
@@ -37,6 +38,7 @@ HotelModel _$HotelModelFromJson(Map<String, dynamic> json) => HotelModel(
 
 Map<String, dynamic> _$HotelModelToJson(HotelModel instance) =>
     <String, dynamic>{
+      'hotel-id': instance.hotelId,
       'best-offer': instance.bestOffer,
       'category': instance.category,
       'destination': instance.destination,

@@ -17,7 +17,7 @@ class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FavoriteModel(
-      id: fields[0] as int,
+      id: fields[0] as String,
       images: (fields[1] as List).cast<String>(),
       name: fields[2] as String,
       destination: fields[3] as String,

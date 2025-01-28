@@ -18,7 +18,7 @@ class FavoriteModel extends Equatable {
   static const String boxName = 'FavoriteModel';
 
   @HiveField(0)
-  final int id;
+  final String id;
   @HiveField(1)
   final List<String> images;
   @HiveField(2)
@@ -34,7 +34,7 @@ class FavoriteModel extends Equatable {
 
   factory FavoriteModel.empty() {
     return const FavoriteModel(
-      id: -1,
+      id: '',
       images: [],
       name: '',
       destination: '',

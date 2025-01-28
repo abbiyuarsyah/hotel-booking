@@ -19,6 +19,7 @@ class HotelsModel {
 @JsonSerializable()
 class HotelModel {
   HotelModel(
+    this.hotelId,
     this.bestOffer,
     this.category,
     this.destination,
@@ -27,6 +28,8 @@ class HotelModel {
     this.ratingInfo,
   );
 
+  @JsonKey(name: "hotel-id")
+  final String? hotelId;
   @JsonKey(name: "best-offer")
   final BestOfferModel? bestOffer;
   final int? category;

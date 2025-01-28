@@ -7,20 +7,24 @@ class HotelsEntity {
 
 class HotelEntity {
   HotelEntity({
+    required this.hotelId,
     required this.bestOffer,
     required this.category,
     required this.destination,
     required this.images,
     required this.name,
     required this.rating,
+    required this.isAddedToFavorite,
   });
 
+  final String hotelId;
   final BestOfferEntity bestOffer;
   final int category;
   final String destination;
   final List<ImageEntity> images;
   final String name;
   final RatingInfoEntity rating;
+  final bool isAddedToFavorite;
 }
 
 class BestOfferEntity {

@@ -9,7 +9,7 @@ class FavoriteEntity {
     required this.reviewsCount,
   });
 
-  final int id;
+  final String id;
   final List<String> images;
   final String name;
   final String destination;

@@ -13,6 +13,8 @@ class HotelState extends Equatable {
     required this.getFavoritesStatus,
     required this.errorMessage,
     required this.favorites,
+    required this.addToFavoriteFlag,
+    required this.favoritesHolder,
   });
 
   final HotelsEntity hotelsEntity;
@@ -22,6 +24,8 @@ class HotelState extends Equatable {
   final StateStatus getFavoritesStatus;
   final String errorMessage;
   final List<FavoriteEntity> favorites;
+  final bool addToFavoriteFlag;
+  final List<String> favoritesHolder;
 
   HotelState copyWith({
     StateStatus? getHotelsStatus,
@@ -31,6 +35,8 @@ class HotelState extends Equatable {
     HotelsEntity? hotelsEntity,
     String? errorMessage,
     List<FavoriteEntity>? favorites,
+    bool? addToFavoriteFlag,
+    List<String>? favoritesHolder,
   }) {
     return HotelState(
       getHotelsStatus: getHotelsStatus ?? this.getHotelsStatus,
@@ -40,6 +46,8 @@ class HotelState extends Equatable {
       hotelsEntity: hotelsEntity ?? this.hotelsEntity,
       errorMessage: errorMessage ?? this.errorMessage,
       favorites: favorites ?? this.favorites,
+      addToFavoriteFlag: addToFavoriteFlag ?? this.addToFavoriteFlag,
+      favoritesHolder: favoritesHolder ?? this.favoritesHolder,
     );
   }
 
@@ -52,5 +60,7 @@ class HotelState extends Equatable {
         getFavoritesStatus,
         errorMessage,
         favorites,
+        addToFavoriteFlag,
+        favoritesHolder,
       ];
 }

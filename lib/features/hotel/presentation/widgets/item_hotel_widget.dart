@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/hotel/domain/entities/favorite_entity.dart';
 import 'package:hotel_booking/features/hotel/domain/entities/hotels_entity.dart';
 import 'package:hotel_booking/features/hotel/presentation/bloc/hotel_event.dart';
+import 'package:hotel_booking/features/hotel/presentation/bloc/hotel_state.dart';
 import 'package:hotel_booking/features/hotel/presentation/widgets/category_widget.dart';
 import 'package:hotel_booking/features/hotel/presentation/widgets/item_hotel_detail_widget.dart';
 
@@ -14,13 +17,8 @@ import '../../../../core/shared_widgets/card_container.dart';
 import '../bloc/hotel_bloc.dart';
 
 class ItemHotelWidget extends StatelessWidget {
-  const ItemHotelWidget({
-    super.key,
-    required this.isDetailShown,
-    required this.hotel,
-  });
+  const ItemHotelWidget({super.key, required this.hotel});
 
-  final bool isDetailShown;
   final HotelEntity hotel;
 
   @override
@@ -67,55 +65,48 @@ class ItemHotelWidget extends StatelessWidget {
                   );
                 }).toList(),
               ),
-              isDetailShown
-                  ? const SizedBox()
-                  : Positioned(
-                      bottom: Dimens.large,
-                      left: Dimens.medium,
-                      child: Row(
-                        children: [
-                          CardContainer(
-                            padding: const EdgeInsets.all(Dimens.small),
-                            isTopRounded: true,
-                            isBottomRounded: true,
-                            radiusValue: Dimens.extraSmall,
-                            color: Colors.green,
-                            child: Row(
-                              children: [
-                                const Icon(Icons.rounded_corner),
-                                const SizedBox(width: 8),
-                                Text(
-                                  '4.1 / 50',
-                                  style: CustomStyle.body.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+              BlocBuilder<HotelBloc, HotelState>(
+                buildWhen: (previous, current) =>
+                    previous.addToFavoriteStatus !=
+                        current.addToFavoriteStatus ||
+                    previous.addToFavoriteFlag != current.addToFavoriteFlag,
+                builder: (context, state) {
+                  final isAddedToFavorite = hotel.isAddedToFavorite ||
+                      state.favoritesHolder.contains(hotel.hotelId);
+                  return Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () {
+                        if (isAddedToFavorite) {
+                          sl<HotelBloc>().add(
+                            DeleteFavoriteEvent(
+                              entity: FavoriteEntity(
+                                id: hotel.hotelId,
+                                images:
+                                    hotel.images.map((e) => e.large).toList(),
+                                name: hotel.name,
+                                destination: hotel.destination,
+                                score: hotel.rating.score,
+                                scoreDescription: hotel.rating.scoreDescription,
+                                reviewsCount: hotel.rating.reviewsCount,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: Dimens.medium),
-                          Text(
-                            'Sehr gut (493 Bew.)',
-                            style: CustomStyle.body.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                          );
+                        } else {
+                          sl<HotelBloc>().add(AddToFavoriteEvent(
+                            entity: hotel,
+                          ));
+                        }
+                      },
+                      icon: Icon(
+                        isAddedToFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        color: Colors.white,
                       ),
                     ),
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () {
-                    sl<HotelBloc>().add(AddToFavoriteEvent(entity: hotel));
-                  },
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                  ),
-                ),
+                  );
+                },
               )
             ],
           ),
@@ -158,14 +149,12 @@ class ItemHotelWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: Dimens.large),
             child: Divider(),
           ),
-          isDetailShown
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimens.large),
-                  child: ItemHotelDetailWidget(
-                    bestOfferEntity: hotel.bestOffer,
-                  ),
-                )
-              : const SizedBox(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Dimens.large),
+            child: ItemHotelDetailWidget(
+              bestOfferEntity: hotel.bestOffer,
+            ),
+          ),
           const SizedBox(height: Dimens.medium),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Dimens.large)
