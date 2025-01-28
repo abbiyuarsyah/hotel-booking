@@ -30,5 +30,6 @@
     "delete_cache_error": "Something is wrong of deleting local data",
     "network_error": "Something is wrong with the connection",
     "no_data": "No data available yet",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "to_the_hotel": "To The Hotel"
 }

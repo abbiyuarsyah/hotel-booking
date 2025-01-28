@@ -74,8 +74,12 @@ class ItemFavoriteWidget extends StatelessWidget {
                       color: Colors.green,
                       child: Row(
                         children: [
-                          const Icon(Icons.rounded_corner),
-                          const SizedBox(width: 8),
+                          const Icon(
+                            Icons.sentiment_very_satisfied,
+                            size: 14,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: Dimens.small),
                           Text(
                             '${favorite.score} / 5.0',
                             style: CustomStyle.body.copyWith(
@@ -168,7 +172,7 @@ class ItemFavoriteWidget extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  tr('to_the_offers'),
+                  tr('to_the_hotel'),
                   style: CustomStyle.subtitle.copyWith(
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
