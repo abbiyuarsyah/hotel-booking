@@ -71,8 +71,9 @@ class ItemHotelWidget extends StatelessWidget {
                         current.addToFavoriteStatus ||
                     previous.addToFavoriteFlag != current.addToFavoriteFlag,
                 builder: (context, state) {
-                  final isAddedToFavorite = hotel.isAddedToFavorite ||
-                      state.favoritesHolder.contains(hotel.hotelId);
+                  final isAddedToFavorite = hotel.isAddedToFavorite
+                      ? true
+                      : state.favoritesHolder.contains(hotel.hotelId);
                   return Align(
                     alignment: Alignment.topRight,
                     child: IconButton(
@@ -93,9 +94,27 @@ class ItemHotelWidget extends StatelessWidget {
                             ),
                           );
                         } else {
-                          sl<HotelBloc>().add(AddToFavoriteEvent(
-                            entity: hotel,
-                          ));
+                          if (isAddedToFavorite) {
+                            sl<HotelBloc>().add(
+                              DeleteFavoriteEvent(
+                                entity: FavoriteEntity(
+                                  id: hotel.hotelId,
+                                  images:
+                                      hotel.images.map((e) => e.large).toList(),
+                                  name: hotel.name,
+                                  destination: hotel.destination,
+                                  score: hotel.rating.score,
+                                  scoreDescription:
+                                      hotel.rating.scoreDescription,
+                                  reviewsCount: hotel.rating.reviewsCount,
+                                ),
+                              ),
+                            );
+                          } else {
+                            sl<HotelBloc>().add(AddToFavoriteEvent(
+                              entity: hotel,
+                            ));
+                          }
                         }
                       },
                       icon: Icon(

@@ -18,7 +18,10 @@ class HttpClientHelper {
       endpoint,
       queryParameters,
     );
-    final headers = {'Content-Type': 'application/json'};
+    final headers = {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Accept': 'application/json; charset=utf-8',
+    };
     final request = await _httpMethod(url, headers, method, body);
 
     return request;

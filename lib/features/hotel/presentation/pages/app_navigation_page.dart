@@ -8,24 +8,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/custom_images.dart';
 import '../../../../core/constants/dimens.dart';
-import '../../../../core/service_locator/service_locator.dart';
-import '../bloc/hotel_bloc.dart';
-import '../bloc/hotel_event.dart';
 
 @RoutePage()
-class AppNavigationPage extends StatefulWidget {
+class AppNavigationPage extends StatelessWidget {
   const AppNavigationPage({super.key});
-
-  @override
-  State<AppNavigationPage> createState() => _AppNavigationPageState();
-}
-
-class _AppNavigationPageState extends State<AppNavigationPage> {
-  @override
-  void initState() {
-    super.initState();
-    sl<HotelBloc>().add(const GetHotelsEvent());
-  }
 
   @override
   Widget build(BuildContext context) {

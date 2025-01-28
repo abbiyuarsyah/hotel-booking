@@ -18,6 +18,7 @@ import '../widgets/item_hotel_widget.dart';
 class HotelListPage extends StatelessWidget {
   const HotelListPage({super.key});
 
+  // @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +63,12 @@ class HotelListPage extends StatelessWidget {
                 },
               );
             } else if (state.getHotelsStatus == StateStatus.loading) {
-              return const Center(child: CircularProgressIndicator());
+              return SizedBox(
+                height: MediaQuery.of(context).size.height / 1.2,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
 
             return const SizedBox();

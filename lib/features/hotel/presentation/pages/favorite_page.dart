@@ -14,20 +14,10 @@ import '../../../../core/shared_widgets/error_screen_wdiget.dart';
 import '../widgets/item_favorite_widget.dart';
 
 @RoutePage()
-class FavoritePage extends StatefulWidget {
+class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
 
-  @override
-  State<FavoritePage> createState() => _FavoritePageState();
-}
-
-class _FavoritePageState extends State<FavoritePage> {
-  @override
-  void initState() {
-    super.initState();
-    sl<HotelBloc>().add(const GetFavoriteEvent());
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +26,12 @@ class _FavoritePageState extends State<FavoritePage> {
       body: BlocBuilder<HotelBloc, HotelState>(
         builder: (context, state) {
           if (state.getFavoritesStatus == StateStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           } else if (state.getFavoritesStatus == StateStatus.loaded) {
             return ListView.builder(
               padding: const EdgeInsets.all(Dimens.large),
