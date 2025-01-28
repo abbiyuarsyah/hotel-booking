@@ -24,6 +24,7 @@ class HotelModel {
     this.destination,
     this.images,
     this.name,
+    this.ratingInfo,
   );
 
   @JsonKey(name: "best-offer")
@@ -32,6 +33,8 @@ class HotelModel {
   final String? destination;
   final List<ImageModel>? images;
   final String? name;
+  @JsonKey(name: "rating-info")
+  final RatingInfoModel? ratingInfo;
 
   factory HotelModel.fromJson(Map<String, dynamic> json) =>
       _$HotelModelFromJson(json);
@@ -123,4 +126,20 @@ class TravelDateModel {
       _$TravelDateModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TravelDateModelToJson(this);
+}
+
+@JsonSerializable()
+class RatingInfoModel {
+  RatingInfoModel(this.reviewsCount, this.score, this.scoreDescription);
+
+  @JsonKey(name: "reviews-count")
+  final int? reviewsCount;
+  @JsonKey(name: "score-description")
+  final String? scoreDescription;
+  final double? score;
+
+  factory RatingInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$RatingInfoModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RatingInfoModelToJson(this);
 }

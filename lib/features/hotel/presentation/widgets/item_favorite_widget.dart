@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_booking/features/hotel/domain/entities/favorite_entity.dart';
 import 'package:hotel_booking/features/hotel/domain/entities/hotels_entity.dart';
 import 'package:hotel_booking/features/hotel/presentation/bloc/hotel_event.dart';
 import 'package:hotel_booking/features/hotel/presentation/widgets/category_widget.dart';
@@ -13,15 +14,10 @@ import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/shared_widgets/card_container.dart';
 import '../bloc/hotel_bloc.dart';
 
-class ItemHotelWidget extends StatelessWidget {
-  const ItemHotelWidget({
-    super.key,
-    required this.isDetailShown,
-    required this.hotel,
-  });
+class ItemFavoriteWidget extends StatelessWidget {
+  const ItemFavoriteWidget({super.key, required this.favorite});
 
-  final bool isDetailShown;
-  final HotelEntity hotel;
+  final FavoriteEntity favorite;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +42,7 @@ class ItemHotelWidget extends StatelessWidget {
                   enableInfiniteScroll: true,
                   autoPlay: true,
                 ),
-                items: hotel.images.map((i) {
+                items: favorite.images.map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return ClipRRect(
@@ -59,7 +55,7 @@ class ItemHotelWidget extends StatelessWidget {
                           height: double.infinity,
                           child: Image(
                             fit: BoxFit.cover,
-                            image: NetworkImage(i.small),
+                            image: NetworkImage(i),
                           ),
                         ),
                       );
@@ -67,36 +63,23 @@ class ItemHotelWidget extends StatelessWidget {
                   );
                 }).toList(),
               ),
-              isDetailShown
-                  ? const SizedBox()
-                  : Positioned(
-                      bottom: Dimens.large,
-                      left: Dimens.medium,
+              Positioned(
+                bottom: Dimens.large,
+                left: Dimens.medium,
+                child: Row(
+                  children: [
+                    CardContainer(
+                      padding: const EdgeInsets.all(Dimens.small),
+                      isTopRounded: true,
+                      isBottomRounded: true,
+                      radiusValue: Dimens.extraSmall,
+                      color: Colors.green,
                       child: Row(
                         children: [
-                          CardContainer(
-                            padding: const EdgeInsets.all(Dimens.small),
-                            isTopRounded: true,
-                            isBottomRounded: true,
-                            radiusValue: Dimens.extraSmall,
-                            color: Colors.green,
-                            child: Row(
-                              children: [
-                                const Icon(Icons.rounded_corner),
-                                const SizedBox(width: 8),
-                                Text(
-                                  '4.1 / 50',
-                                  style: CustomStyle.body.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: Dimens.medium),
+                          const Icon(Icons.rounded_corner),
+                          const SizedBox(width: 8),
                           Text(
-                            'Sehr gut (493 Bew.)',
+                            '${favorite.score} / 5.0',
                             style: CustomStyle.body.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
@@ -105,11 +88,22 @@ class ItemHotelWidget extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(width: Dimens.medium),
+                    Text(
+                      '${favorite.scoreDescription} (${favorite.reviewsCount} ${tr('reviews').toLowerCase()})',
+                      style: CustomStyle.body.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
                   onPressed: () {
-                    sl<HotelBloc>().add(AddToFavoriteEvent(entity: hotel));
+                    // sl<HotelBloc>().add(AddToFavoriteEvent(entity: hotel));
                   },
                   icon: const Icon(
                     Icons.favorite,
@@ -142,14 +136,14 @@ class ItemHotelWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Dimens.large),
             child: Text(
-              hotel.name,
+              favorite.name,
               style: CustomStyle.title,
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Dimens.large),
             child: Text(
-              hotel.destination,
+              favorite.destination,
               style: CustomStyle.subtitle,
             ),
           ),
@@ -158,14 +152,6 @@ class ItemHotelWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: Dimens.large),
             child: Divider(),
           ),
-          isDetailShown
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimens.large),
-                  child: ItemHotelDetailWidget(
-                    bestOfferEntity: hotel.bestOffer,
-                  ),
-                )
-              : const SizedBox(),
           const SizedBox(height: Dimens.medium),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Dimens.large)

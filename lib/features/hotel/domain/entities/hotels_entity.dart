@@ -12,6 +12,7 @@ class HotelEntity {
     required this.destination,
     required this.images,
     required this.name,
+    required this.rating,
   });
 
   final BestOfferEntity bestOffer;
@@ -19,6 +20,7 @@ class HotelEntity {
   final String destination;
   final List<ImageEntity> images;
   final String name;
+  final RatingInfoEntity rating;
 }
 
 class BestOfferEntity {
@@ -69,4 +71,16 @@ class TravelDateEntity {
 
   final int days;
   final int nights;
+}
+
+class RatingInfoEntity {
+  RatingInfoEntity({
+    required this.reviewsCount,
+    required this.score,
+    required this.scoreDescription,
+  });
+
+  final int reviewsCount;
+  final String scoreDescription;
+  final double score;
 }

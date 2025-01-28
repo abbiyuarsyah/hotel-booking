@@ -51,6 +51,11 @@ class GetHotels extends UseCase<HotelsEntity, Object?> {
                       )
                       .toList(),
                   name: e.name ?? '',
+                  rating: RatingInfoEntity(
+                    reviewsCount: e.ratingInfo?.reviewsCount ?? 0,
+                    score: e.ratingInfo?.score ?? 0,
+                    scoreDescription: e.ratingInfo?.scoreDescription ?? '',
+                  ),
                 ),
               )
               .toList(),

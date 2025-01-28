@@ -29,6 +29,10 @@ HotelModel _$HotelModelFromJson(Map<String, dynamic> json) => HotelModel(
           ?.map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['name'] as String?,
+      json['rating-info'] == null
+          ? null
+          : RatingInfoModel.fromJson(
+              json['rating-info'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$HotelModelToJson(HotelModel instance) =>
@@ -38,6 +42,7 @@ Map<String, dynamic> _$HotelModelToJson(HotelModel instance) =>
       'destination': instance.destination,
       'images': instance.images,
       'name': instance.name,
+      'rating-info': instance.ratingInfo,
     };
 
 BestOfferModel _$BestOfferModelFromJson(Map<String, dynamic> json) =>
@@ -110,4 +115,18 @@ Map<String, dynamic> _$TravelDateModelToJson(TravelDateModel instance) =>
     <String, dynamic>{
       'days': instance.days,
       'nights': instance.nights,
+    };
+
+RatingInfoModel _$RatingInfoModelFromJson(Map<String, dynamic> json) =>
+    RatingInfoModel(
+      (json['reviews-count'] as num?)?.toInt(),
+      (json['score'] as num?)?.toDouble(),
+      json['score-description'] as String?,
+    );
+
+Map<String, dynamic> _$RatingInfoModelToJson(RatingInfoModel instance) =>
+    <String, dynamic>{
+      'reviews-count': instance.reviewsCount,
+      'score-description': instance.scoreDescription,
+      'score': instance.score,
     };
